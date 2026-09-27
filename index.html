@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1 | Official Grid & Cars Directory</title>
+    <style>
+        /* F1 Design System Variables */
+        :root {
+            --f1-red: #e10600;
+            --f1-black: #15151e;
+            --f1-dark-gray: rgba(31, 31, 43, 0.85);
+            --f1-card-bg: rgba(24, 24, 36, 0.85);
+            --f1-border: #2b2b3d;
+            --f1-white: #ffffff;
+            --f1-text-gray: #a1a1a1;
+            
+            /* Team Accent Colors */
+            --team-ferrari: #e80020;
+            --team-redbull: #3671c6;
+            --team-mercedes: #27f4d2;
+            --team-mclaren: #ff8000;
+            --team-aston: #229971;
+            --team-alpine: #0093cc;
+            --team-williams: #64c4ff;
+            --team-audi: #f32121;
+            --team-haas: #b6babd;
+            --team-rb: #6692ff;
+            --team-cadillac: #c0c0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Titillium Web', 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* GLOBAL LEWIS HAMILTON BACKGROUND */
+        body {
+            background: linear-gradient(180deg, rgba(11, 11, 16, 0.78) 0%, rgba(15, 15, 23, 0.90) 100%),
+                        url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat fixed;
+            color: var(--f1-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar & Header Nav */
+        header {
+            background-color: rgba(11, 11, 16, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 4px solid var(--f1-red);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.5rem;
+            font-style: italic;
+            letter-spacing: -1px;
+        }
+
+        .brand-logo span {
+            background: var(--f1-red);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-style: normal;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--f1-red);
+        }
+
+        /* Hero Banner */
+        .hero {
+            margin-top: 60px;
+            padding: 5rem 1.5rem 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid var(--f1-border);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-style: italic;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            color: #d1d1d1;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* Filter Controls Bar */
+        .filter-container {
+            max-width: 1300px;
+            margin: -25px auto 2rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: rgba(31, 31, 43, 0.95);
+            border: 1px solid var(--f1-border);
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            color: #fff;
+            width: 300px;
+            outline: none;
+            font-size: 0.9rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .search-box:focus {
+            border-color: var(--f1-red);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(31, 31, 43, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--f1-border);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--f1-red);
+            border-color: var(--f1-red);
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem 1.5rem;
+        }
+
+        .grid-header {
+            border-bottom: 2px solid var(--f1-border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .grid-header h2 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            font-style: italic;
+            border-left: 4px solid var(--f1-red);
+            padding-left: 0.8rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* Cars Grid */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* F1 Car Card */
+        .car-card {
+            background: var(--f1-card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid var(--f1-border);
+            overflow: hidden;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.8);
+        }
+
+        .card-stripe {
+            height: 4px;
+            width: 100%;
+        }
+
+        .card-image-wrap {
+            position: relative;
+            height: 210px;
+            background: #0d0d14;
+            overflow: hidden;
+        }
+
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .car-card:hover .card-image-wrap img {
+            transform: scale(1.05);
+        }
+
+        .car-number {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            font-weight: 900;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.35);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .card-body {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--f1-text-gray);
+            margin-bottom: 0.2rem;
+        }
+
+        .car-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chassis-tag {
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-style: italic;
+        }
+
+        /* Tech Specs Table inside card */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            background: rgba(0,0,0,0.35);
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .spec-item span {
+            display: block;
+            color: var(--f1-text-gray);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .spec-item strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .drivers-list {
+            margin-top: auto;
+            border-top: 1px solid var(--f1-border);
+            padding-top: 0.8rem;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .drivers-list strong {
+            color: #fff;
+        }
+
+        /* Specific Team Border & Stripe Styling */
+        .car-card[data-team="ferrari"] { border-top: 1px solid var(--team-ferrari); }
+        .car-card[data-team="ferrari"] .card-stripe { background: var(--team-ferrari); }
+
+        .car-card[data-team="redbull"] { border-top: 1px solid var(--team-redbull); }
+        .car-card[data-team="redbull"] .card-stripe { background: var(--team-redbull); }
+
+        .car-card[data-team="mercedes"] { border-top: 1px solid var(--team-mercedes); }
+        .car-card[data-team="mercedes"] .card-stripe { background: var(--team-mercedes); }
+
+        .car-card[data-team="mclaren"] { border-top: 1px solid var(--team-mclaren); }
+        .car-card[data-team="mclaren"] .card-stripe { background: var(--team-mclaren); }
+
+        .car-card[data-team="aston"] { border-top: 1px solid var(--team-aston); }
+        .car-card[data-team="aston"] .card-stripe { background: var(--team-aston); }
+
+        .car-card[data-team="alpine"] { border-top: 1px solid var(--team-alpine); }
+        .car-card[data-team="alpine"] .card-stripe { background: var(--team-alpine); }
+
+        .car-card[data-team="williams"] { border-top: 1px solid var(--team-williams); }
+        .car-card[data-team="williams"] .card-stripe { background: var(--team-williams); }
+
+        .car-card[data-team="audi"] { border-top: 1px solid var(--team-audi); }
+        .car-card[data-team="audi"] .card-stripe { background: var(--team-audi); }
+
+        .car-card[data-team="haas"] { border-top: 1px solid var(--team-haas); }
+        .car-card[data-team="haas"] .card-stripe { background: var(--team-haas); }
+
+        .car-card[data-team="rb"] { border-top: 1px solid var(--team-rb); }
+        .car-card[data-team="rb"] .card-stripe { background: var(--team-rb); }
+
+        .car-card[data-team="cadillac"] { border-top: 1px solid var(--team-cadillac); }
+        .car-card[data-team="cadillac"] .card-stripe { background: var(--team-cadillac); }
+
+        /* Footer */
+        footer {
+            background: rgba(9, 9, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--f1-border);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            color: var(--f1-text-gray);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0.5rem auto 0 auto;
+            line-height: 1.4;
+        }
+
+        /* Responsive Layout Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .filter-container { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+            .cars-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <span>F1</span> GRID DIRECTORY
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#cars">All Cars</a></li>
+                <li><a href="#specs">Regulations</a></li>
+                <li><a href="#standings">Standings</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <h1>Official Formula 1 Cars</h1>
+        <p>Explore technical specifications, power units, chassis designations, and driver lineups for every constructor competing on the F1 grid.</p>
+    </section>
+
+    <!-- Search & Dynamic Filter Controls -->
+    <div class="filter-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search team, driver, or engine...">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCars('all')">All Cars (5)</button>
+            <button class="filter-btn" onclick="filterCars('top')">Front Runners</button>
+            <button class="filter-btn" onclick="filterCars('midfield')">Midfield</button>
+        </div>
+    </div>
+
+    <!-- Main Directory Grid Section -->
+    <section class="container" id="cars">
+        <div class="grid-header">
+            <h2>Championship Grid</h2>
+            <span style="color: var(--f1-text-gray); font-size: 0.9rem;" id="carCount">Showing Teams</span>
+        </div>
+
+        <div class="cars-grid" id="carsGrid">
+
+            <!-- 1. Scuderia Ferrari -->
+            <div class="car-card" data-team="ferrari" data-category="top" data-search="ferrari sf-24 charles leclerc lewis hamilton 066/12">
+                <div class="card-stripe"></div>
+                <div class="card-image-wrap">
+                    <span class="car-number">16 / 44</span>
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80" alt="Scuderia Ferrari">
+                </div>
+                <div class="card-body">
+                    <div class="team-subtitle">Scuderia Ferrari</div>
+                    <div class="car-title">
+                        SF-24
+                        <span class="chassis-tag">Ferrari Power</span>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><span>Engine</span><strong>Ferrari 066/12 1.6L</strong></div>
+                        <div class="spec-item"><span>Power</span><strong>1000+ HP</strong></div>
+                        <div class="spec-item"><span>Base</span><strong>Maranello, Italy</strong></div>
+                        <div class="spec-item"><span>Weight</span><strong>798 kg</strong></div>
+                    </div>
+                    <div class="drivers-list">
+                        <span>Drivers:</span>
+                        <strong>Charles Leclerc, Lewis Hamilton</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Oracle Red Bull Racing -->
+            <div class="car-card" data-team="redbull" data-category="top" data-search="red bull rb20 max verstappen isack hadjar honda rbpt">
+                <div class="card-stripe"></div>
+                <div class="card-image-wrap">
+                    <span class="car-number">1 / 6</span>
+                    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80" alt="Red Bull Racing">
+                </div>
+                <div class="card-body">
+                    <div class="team-subtitle">Oracle Red Bull Racing</div>
+                    <div class="car-title">
+                        RB20
+                        <span class="chassis-tag">Honda RBPT</span>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><span>Engine</span><strong>Honda RBPTH002</strong></div>
+                        <div class="spec-item"><span>Power</span><strong>1000+ HP</strong></div>
+                        <div class="spec-item"><span>Base</span><strong>Milton Keynes, UK</strong></div>
+                        <div class="spec-item"><span>Weight</span><strong>798 kg</strong></div>
+                    </div>
+                    <div class="drivers-list">
+                        <span>Drivers:</span>
+                        <strong>Max Verstappen, Isack Hadjar</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Mercedes-AMG Petronas -->
+            <div class="car-card" data-team="mercedes" data-category="top" data-search="mercedes w15 george russell kimi antonelli amg">
+                <div class="card-stripe"></div>
+                <div class="card-image-wrap">
+                    <span class="car-number">63 / 12</span>
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" alt="Mercedes-AMG F1">
+                </div>
+                <div class="card-body">
+                    <div class="team-subtitle">Mercedes-AMG PETRONAS</div>
+                    <div class="car-title">
+                        W15 E
+                        <span class="chassis-tag">Mercedes-AMG</span>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><span>Engine</span><strong>Mercedes-AMG M15</strong></div>
+                        <div class="spec-item"><span>Power</span><strong>1000+ HP</strong></div>
+                        <div class="spec-item"><span>Base</span><strong>Brackley, UK</strong></div>
+                        <div class="spec-item"><span>Weight</span><strong>798 kg</strong></div>
+                    </div>
+                    <div class="drivers-list">
+                        <span>Drivers:</span>
+                        <strong>George Russell, Kimi Antonelli</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. McLaren F1 Team -->
+            <div class="car-card" data-team="mclaren" data-category="top" data-search="mclaren mcl38 lando norris oscar piastri mercedes">
+                <div class="card-stripe"></div>
+                <div class="card-image-wrap">
+                    <span class="car-number">4 / 81</span>
+                    <img src="https://images.unsplash.com/photo-1541348263662-e082662dc324?auto=format&fit=crop&w=800&q=80" alt="McLaren F1">
+                </div>
+                <div class="card-body">
+                    <div class="team-subtitle">McLaren Formula 1 Team</div>
+                    <div class="car-title">
+                        MCL38
+                        <span class="chassis-tag">Mercedes-AMG</span>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item"><span>Engine</span><strong>Mercedes-AMG M15</strong></div>
+                        <div class="spec-item"><span>Power</span><strong>1000+ HP</strong></div>
+                        <div class="spec-item"><span>Base</span><strong>Woking, UK</strong></div>
+                        <div class="spec-item"><span>Weight</span><strong>798 kg</strong></div>
+                    </div>
+                    <div class="drivers-list">
+                        <span>Drivers:</span>
+                        <strong>Lando Norris, Oscar Piastri</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Aston Martin Aramco -->
+            <div class="car-card" data-team="aston" data-category="midfield" data-search="aston
